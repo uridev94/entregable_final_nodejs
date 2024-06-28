@@ -10,10 +10,6 @@ const Product = sequelize.define('product', {
         type: DataTypes.TEXT,
         allowNull: false
     },
-    categoryId: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
     price: {
         type: DataTypes.INTEGER,
         allowNull: false

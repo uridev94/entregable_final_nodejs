@@ -1,12 +1,16 @@
+require('../models')
 const request = require("supertest");
 const app = require('../app');
+const Category = require("../models/Category");
 
 
 const BASE_URL_LOG = '/api/v1/users'
 const BASE_URL = '/api/v1/products'
-// const BASE_URL_CAT = '/api/v1/categories'
 
+let category
 let productId
+let product
+
 
 beforeAll(async () => {
     const body = {
@@ -18,20 +22,28 @@ beforeAll(async () => {
         .post(`${BASE_URL_LOG}/login`)
         .send(body);
 
-        //    console.log(res.body)
-    // categoryId = res.body.categoryId
+
     TOKEN = res.body.token;
+    
+    const categBody = {
+        name: "Professional sound"
+    }
+
+    
+    category = await Category.create(categBody)
+
+    product = {
+        title: 'Bose speaker',
+        description: 'Inalambric speaker, stereo sound, bluetooth and usb port',
+        price: 120,
+        categoryId: category.id
+    };
 
 });
 
 
 
-const product ={
-    title: 'Bose speaker',
-    description: 'Inalambric speaker, stereo sound, bluetooth and usb port',
-    categoryId: 1,
-    price: 120
-};
+
 
 test("POST -> 'BASE_URL' should return statusCode 201, res.body toBeDefined and as a protected route should pass test for authorization", async()=>{
 
@@ -40,7 +52,7 @@ test("POST -> 'BASE_URL' should return statusCode 201, res.body toBeDefined and 
     .send(product)
     .set('Authorization', `Bearer ${TOKEN}`)
 
-    // console.log(res.body)
+    console.log(res.body)
 
     productId = res.body.id
 
@@ -67,7 +79,7 @@ test("GETONE -> 'BASE_URL/:id', should return status code 200 and res.body.title
     const res = await request(app)
     .get(`${BASE_URL}/${productId}`)
 
-    console.log(res.body)
+    // console.log(res.body)
 
     expect(res.statusCode).toBe(200)
     expect(res.body).toBeDefined()
@@ -102,4 +114,5 @@ test("DELELTE -> 'BASE_URL/:id', should return status code 204", async()=>{
     .set('Authorization', `Bearer ${TOKEN}`)
 
     expect(res.statusCode).toBe(204)
-})
+});
+
