@@ -7,7 +7,7 @@ const getAll = catchError(async(req, res) => {
 });
 
 const create = catchError(async(req, res) => {
-    const { quantity, productId} = req.body
+    const { quantity, productId } = req.body
     const userId = req.user.id
     const body = {quantity, userId, productId }
     const result = await Cart.create(body);

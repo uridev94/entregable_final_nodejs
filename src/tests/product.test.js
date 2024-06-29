@@ -29,6 +29,7 @@ beforeAll(async () => {
         name: "Professional sound"
     }
 
+
     
     category = await Category.create(categBody)
 
@@ -39,6 +40,11 @@ beforeAll(async () => {
         categoryId: category.id
     };
 
+});
+
+
+afterAll( async()=>{
+    await category.destroy()
 });
 
 
@@ -115,4 +121,3 @@ test("DELELTE -> 'BASE_URL/:id', should return status code 204", async()=>{
 
     expect(res.statusCode).toBe(204)
 });
-
