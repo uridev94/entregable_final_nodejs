@@ -58,15 +58,16 @@ afterAll( async()=> {
 });
 
 
-test("POST -> 'BASE_URL' should return statusCode 201 and res.body.quantity === cart.quantity", async()=>{
+test("POST -> 'BASE_URL' should return statusCode 201 and res.body toBeDefined finalCart", async()=>{
     const res = await request(app)
     .post(BASE_URL)
     .set('Authorization', `Bearer ${TOKEN}`)
-    .send(finalCart)
+    // .send(finalCart)
 
-    
+    // console.log(res.body)
     expect(res.statusCode).toBe(201)
     expect(res.body).toBeDefined()
+    expect(res.body).toBe(finalCart.quantity)
 });
 
 
@@ -79,6 +80,8 @@ test("GET -> 'BASE_URL' should return statusCode 200 and res.body.length === 1",
     expect(res.status).toBe(200)
     expect(res.body).toBeDefined()
     expect(res.body).toHaveLength(1)
+
+    // console.log(res.body)
   
     expect(res.body[0].userId).toBeDefined()
     expect(res.body[0].userId).toBe(userId)
