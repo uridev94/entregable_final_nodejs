@@ -2,7 +2,7 @@ const { getAll, create, getOne, remove, update } = require('../controllers/cart.
 const express = require('express');
 
 
-const routerCart = express.Router();
+const routerCart = express.Router(); //lockedAll
 
 routerCart.route('/')
     .get(getAll)

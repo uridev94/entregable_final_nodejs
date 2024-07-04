@@ -6,9 +6,9 @@ const routerCategory = express.Router();
 
 routerCategory.route('/')
     .get(getAll)
-    .post(verifyJwt, create);
+    .post(verifyJwt, create); //locked
 
 routerCategory.route('/:id')
-    .delete(verifyJwt, remove)
+    .delete(verifyJwt, remove) //locked
 
 module.exports = routerCategory;
