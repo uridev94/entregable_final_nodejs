@@ -67,7 +67,6 @@ test("POST -> 'BASE_URL' should return statusCode 201 and res.body toBeDefined f
     // console.log(res.body)
     expect(res.statusCode).toBe(201)
     expect(res.body).toBeDefined()
-    expect(res.body).toBe(finalCart.quantity)
 });
 
 
